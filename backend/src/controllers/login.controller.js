@@ -8,7 +8,7 @@ async function loginUser(req , res){
         res.status(404).json({msg : "User does not exist. Register once to access" , success : false})
     }
 
-    const comparePassword = bcrypt.compare(password , user1.password);
+    const comparePassword =await  bcrypt.compare(password , user1.password);
 
     if(comparePassword){
       const token =  await generateToken(user1._id);

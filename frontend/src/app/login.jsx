@@ -5,11 +5,11 @@ export default function loginUser(){
     const[name , setName] = useState("")
     const[password , setPassword] = useState("")
     const handleRegister = async()=>{
-         const obj1 ={
-            name : name ,
-            password : password
-         }
-         console.log( "Checking",obj1);
+        //  const obj1 ={
+        //     name : name ,
+        //     password : password
+        //  }
+        //  console.log( "Checking",obj1);
          
         const response = await fetch("http://localhost:3000/api/login" , 
             {
@@ -23,14 +23,19 @@ export default function loginUser(){
         console.log(data);
 
         if(data.success){
-            // redirect 
-
             router.replace("/")
-            // return(
-            //     <View>
-            //         <Text>Login done</Text>
-            //     </View>
-            // )
+        }
+        else if(!data.success){
+             return(
+            <View style ={{flex : 1 , justifyContent : "center" , alignItems : "center"}}>
+            <Text style ={{color : "red"}}>Register Failed : {data.msg}</Text>
+            <TextInput placeholder="Enter name" value={name} onChangeText={setName} />
+            <TextInput placeholder="Enter password" value={password} onChangeText={setPassword} />
+            <Pressable onPress={handleRegister}>
+            <Text>Register as User</Text>
+            </Pressable>
+        </View>
+            )
         }
     }
     return (
